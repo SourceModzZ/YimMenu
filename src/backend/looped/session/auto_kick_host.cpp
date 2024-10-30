@@ -27,6 +27,7 @@ namespace big
 	static bool bLastKickHost = false;
 	void looped::session_auto_kick_host()
 	{
+		#if 0
 		if (!*g_pointers->m_gta.m_is_session_started)
 		{
 			return;
@@ -57,6 +58,7 @@ namespace big
 		{
 			bLastKickHost = false;
 		}
+		#endif
 	}
 	
 }
