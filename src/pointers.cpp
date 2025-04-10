@@ -3,7 +3,7 @@
 #include "gta_pointers_layout_info.hpp"
 #include "sc_pointers_layout_info.hpp"
 
-#define GTA_VERSION_TARGET "1.70-3411"
+#define GTA_VERSION_TARGET "1.70-3504"
 
 namespace big
 {
@@ -334,10 +334,10 @@ namespace big
         // Network Player Mgr Init
         {
             "NPMI",
-            "41 56 48 83 EC ? 48 8B F1 B9 ? ? ? ? 49 8B F9 41 8B E8 4C 8B F2 E8",
+            "48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 56 48 83 EC ? 48 8B F1 B9 ? ? ? ? 49 8B F9 45 8B F0 8B EA E8",
             [](memory::handle ptr)
             {
-                g_pointers->m_gta.m_network_player_mgr_init = ptr.sub(0x13).as<decltype(gta_pointers::m_network_player_mgr_init)>();
+                g_pointers->m_gta.m_network_player_mgr_init = ptr.sub(0x29).as<decltype(gta_pointers::m_network_player_mgr_init)>();
             }
         },
         // Network Player Mgr Shutdown
@@ -639,7 +639,7 @@ namespace big
         // Handle Join Request
         {
             "HJR",
-            "48 8B C4 48 89 58 08 4C 89 48 20 4C 89 40 18 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 8D A8 A8",
+            "48 8B C4 48 89 58 08 4C 89 48 20 4C 89 40 18 48 89 50 10 55 56 57 41 54 41 55 41 56 41 57 48 8D A8 28",
             [](memory::handle ptr)
             {
                 g_pointers->m_gta.m_handle_join_request = ptr.as<PVOID>();
@@ -693,7 +693,7 @@ namespace big
         // Serialize Join Request Message 2
         {
             "SJRM2",
-            "E8 ? ? ? ? 48 8D 8D 18 01 00 00 8A D8",
+            "E8 ? ? ? ? 48 8D 8D 18 01 00 00 BE ? ? ? ? 89 B5",
             [](memory::handle ptr)
             {
                 g_pointers->m_gta.m_serialize_join_request_message_2 = ptr.add(1).rip().as<PVOID>();
@@ -1900,10 +1900,10 @@ namespace big
         // Network Can Access Multiplayer
         {
             "NCAM",
-            "E9 36 01 00 00 33 D2 8B CB",
+            "E8 ? ? ? ? 45 33 F6 41 BC 02 00 00 00 84 C0 0F 84",
             [](memory::handle ptr)
             {
-                g_pointers->m_gta.m_network_can_access_multiplayer = ptr.add(10).rip().as<PVOID>();
+                g_pointers->m_gta.m_network_can_access_multiplayer = ptr.add(1).rip().as<PVOID>();
             }
         },
         // BattlEye Network Bail Patch
