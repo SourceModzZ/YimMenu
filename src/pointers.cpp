@@ -331,14 +331,14 @@ namespace big
                 g_pointers->m_gta.m_network_object_mgr = ptr.add(3).rip().as<CNetworkObjectMgr**>();
             }
         },
-        // Network Player Mgr Init
+       // Network Player Mgr Init
         {
             "NPMI",
-            "48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 56 48 83 EC ? 48 8B F1 B9 ? ? ? ? 49 8B F9 45 8B F0 8B EA E8",
-            [](memory::handle ptr)
-            {
-                g_pointers->m_gta.m_network_player_mgr_init = ptr.sub(0x29).as<decltype(gta_pointers::m_network_player_mgr_init)>();
-            }
+            "48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 56 48 83 EC 40",
+             [](memory::handle ptr)
+             {
+                g_pointers->m_gta.m_network_player_mgr_init = ptr.as<decltype(gta_pointers::m_network_player_mgr_init)>();
+             }
         },
         // Network Player Mgr Shutdown
         {
@@ -684,7 +684,7 @@ namespace big
         // Serialize Join Request Message
         {
             "SJRM",
-            "E8 ? ? ? ? 84 C0 0F 84 9B 00 00 00 49 8D 8F 50 11 00 00",
+            "E8 ? ? ? ? F3 0F 10 44 24 4C 66 41 C7 46 18 01 00",
             [](memory::handle ptr)
             {
                 g_pointers->m_gta.m_serialize_join_request_message = ptr.add(1).rip().as<PVOID>();
