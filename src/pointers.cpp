@@ -1908,10 +1908,10 @@ namespace big
         // Network Can Access Multiplayer
         {
             "NCAM",
-            "E9 89 01 00 00 48 8B CF E8 C3 A2 04 00",
+            "48 8B CF E8 ?? ?? ?? ?? 84 C0",
             [](memory::handle ptr)
             {
-                g_pointers->m_gta.m_network_can_access_multiplayer = ptr.add(0x23).rip().as<PVOID>();
+                g_pointers->m_gta.m_network_can_access_multiplayer = ptr.add(3).rip().as<void*>();
             }
         },
         // BattlEye Network Bail Patch
