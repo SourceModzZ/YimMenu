@@ -3,7 +3,7 @@
 #include "gta_pointers_layout_info.hpp"
 #include "sc_pointers_layout_info.hpp"
 
-#define GTA_VERSION_TARGET "1.71-3570.0"
+#define GTA_VERSION_TARGET "1.71-3586.0"
 
 namespace big
 {
@@ -1908,7 +1908,7 @@ namespace big
         // Network Can Access Multiplayer
         {
             "NCAM",
-            "E9 89 01 00 00 48 8B CF E8 13 A3 04 00",
+            "E9 89 01 00 00 48 8B CF E8 C3 A2 04 00",
             [](memory::handle ptr)
             {
                 g_pointers->m_gta.m_network_can_access_multiplayer = ptr.add(0x23).rip().as<PVOID>();
