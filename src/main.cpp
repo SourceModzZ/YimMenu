@@ -35,6 +35,8 @@
 #include "util/is_proton.hpp"
 #include "version.hpp"
 
+#include <Psapi.h>
+
 namespace big
 {
 	std::string ReadRegistryKeySZ(HKEY hKeyParent, std::string subkey, std::string valueName)
@@ -89,6 +91,29 @@ namespace big
 		// BrandingFormatString requires a GlobalFree.
 		GlobalFree(UTF16);
 		return UTF8;
+	}
+
+	HMODULE CheckForFSL()
+	{
+		HMODULE modules[1024];
+		DWORD needed;
+
+		if (!EnumProcessModules(GetCurrentProcess(), modules, sizeof(modules), &needed))
+		{
+			return nullptr;
+		}
+
+		size_t count = needed / sizeof(HMODULE);
+
+		for (size_t i = 0; i < count; ++i)
+		{
+			if (GetProcAddress(modules[i], "LawnchairGetVersion"))
+			{
+				return modules[i];
+			}
+		}
+
+		return nullptr;
 	}
 }
 
@@ -146,12 +171,19 @@ BOOL APIENTRY DllMain(HMODULE hmod, DWORD reason, PVOID)
 			    if (!*g_pointers->m_gta.m_anticheat_initialized_hash)
 			    {
 				    *g_pointers->m_gta.m_anticheat_initialized_hash = new rage::Obf32; // this doesn't get freed so we don't have to use the game allocator
-				    (*g_pointers->m_gta.m_anticheat_initialized_hash)->setData(0x124EA49D);
 			    }
-			    else
-			    {
-				    (*g_pointers->m_gta.m_anticheat_initialized_hash)->setData(0x124EA49D);
-			    }
+				(*g_pointers->m_gta.m_anticheat_initialized_hash)->setData(0x124EA49D);
+
+				if (HMODULE FSL = CheckForFSL())
+				{
+				    LOGF(INFO, "FSL Version: {}", reinterpret_cast<int (*)()>(GetProcAddress(FSL, "LawnchairGetVersion"))());
+				    LOGF(INFO, "FSL Local Saves: {}", reinterpret_cast<bool (*)()>(GetProcAddress(FSL, "LawnchairIsProvidingLocalSaves"))() ? "Enabled" : "Disabled");
+				    LOGF(INFO, "FSL BE Bypass: {}", reinterpret_cast<bool (*)()>(GetProcAddress(FSL, "LawnchairIsProvidingBattlEyeBypass"))() ? "Enabled" : "Disabled");
+				}
+				else
+				{
+				    LOGF(FATAL, "YimMenu requires FSL to be loaded. Please get it from UnknownCheats.me");
+				}
 
 			    auto byte_patch_manager_instance = std::make_unique<byte_patch_manager>();
 			    LOG(INFO) << "Byte Patch Manager initialized.";
