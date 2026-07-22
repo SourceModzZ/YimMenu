@@ -9,6 +9,6 @@ namespace big
 			return 1;
 		}
 
-		return 0;
+		return hooking::get_original<hooks::get_pool_type>()();
 	}
 }
