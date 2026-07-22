@@ -76,6 +76,9 @@ namespace big
 			ImGui::Text("PLAYER_COUNT"_T.data());
 			ImGui::InputInt("##playercount", &g.session.player_magnet_count);
 		}
+
+		components::command_checkbox<"cheaterpool">();
+
 		ImGui::EndGroup();
 
 		ImGui::SameLine();
@@ -141,7 +144,6 @@ namespace big
 		ImGui::BeginGroup();
 		components::command_checkbox<"trustfriends">();
 		components::command_checkbox<"trustsession">();
-		components::command_checkbox<"cheaterpool">();
 		components::script_patch_checkbox("REVEAL_OTR_PLAYERS"_T,
 		    &g.session.decloak_players,
 		    "REVEAL_OTR_PLAYERS_DESC"_T.data());
