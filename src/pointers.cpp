@@ -1979,7 +1979,35 @@ namespace big
             {
                 g_pointers->m_gta.m_script_vm_on_enter_end = ptr.as<PVOID>();
             }
+        },
+        // Get Pool Type Pattern
+        {
+            "GPTP",
+            "BA CE 94 A6 ED B9",
+            [](memory::handle ptr)
+            {
+                g_pointers->m_gta.m_get_pool_type = ptr.sub(17).as<PVOID>();
+            }
+        },
+        // Set Join Request Pool Type Patch
+        {
+            "SJRPTP",
+            "89 86 30 01 00 00 E8",
+            [](memory::handle ptr)
+            {
+                g_pointers->m_gta.m_set_join_request_pool_type_patch = ptr.sub(5).as<PVOID>();
+            }
+        },
+        // Handle Join Request Ignore Pool Patch
+        {
+            "HJRIPP",
+            "83 F8 05 7C ? EB",
+            [](memory::handle ptr)
+            {
+                g_pointers->m_gta.m_handle_join_request_ignore_pool_patch = ptr.as<PVOID>();
+            }
         }
+
         >(); // don't leave a trailing comma at the end
 
 		// clang-format on

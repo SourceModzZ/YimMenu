@@ -132,6 +132,7 @@ namespace big
 	bool_command whitelist_session("trustsession", "TRUST_SESSION", "TRUST_SESSION_DESC", g.session.trust_session);
 	bool_command
 	    chat_translate("translatechat", "TRANSLATOR_TOGGLE", "TRANSLATOR_TOGGLE_DESC", g.session.chat_translator.enabled);
+	bool_command cheater_pool("cheaterpool", "Join YimMenu-only Sessions", "Matchmaking will put you into sessions with other YimMenu users.", g.session.cheater_pool);
 
 	void render_general_options()
 	{
@@ -140,6 +141,7 @@ namespace big
 		ImGui::BeginGroup();
 		components::command_checkbox<"trustfriends">();
 		components::command_checkbox<"trustsession">();
+		components::command_checkbox<"cheaterpool">();
 		components::script_patch_checkbox("REVEAL_OTR_PLAYERS"_T,
 		    &g.session.decloak_players,
 		    "REVEAL_OTR_PLAYERS_DESC"_T.data());

@@ -422,6 +422,10 @@ namespace big
 		PVOID m_game_skeleton_update;
 
 		PVOID m_script_vm_on_enter_end;
+
+		PVOID m_get_pool_type;
+		PVOID m_set_join_request_pool_type_patch;
+		PVOID m_handle_join_request_ignore_pool_patch;
 	};
 #pragma pack(pop)
 	static_assert(sizeof(gta_pointers) % 8 == 0, "Pointers are not properly aligned");

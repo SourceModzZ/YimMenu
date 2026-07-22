@@ -87,6 +87,14 @@ namespace big
 
 		// Patch BattlEye network bail
 		memory::byte_patch::make(g_pointers->m_gta.m_be_network_bail_patch, std::to_array({0xC3}))->apply();
+
+		// 1. Set Join Request Pool Type Patch (Replace the call with MOV EAX, 0)
+		memory::byte_patch::make(g_pointers->m_gta.m_set_join_request_pool_type_patch, std::to_array({0xB8, 0x00, 0x00, 0x00, 0x00}))
+		    ->apply();
+
+		// 2. Handle Join Request Ignore Pool Patch (Neutralizes 'cmp eax, 5' with 'cmp eax, eax' + NOP)
+		memory::byte_patch::make(g_pointers->m_gta.m_handle_join_request_ignore_pool_patch, std::to_array({0x39, 0xC0, 0x90}))
+		    ->apply();
 	}
 
 	byte_patch_manager::byte_patch_manager()

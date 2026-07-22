@@ -428,6 +428,7 @@ namespace big
 			bool allow_friends_into_locked_session = false;
 			bool trust_friends                     = false;
 			bool trust_session                     = false;
+			bool cheater_pool                      = false;
 			bool use_spam_timer                    = true;
 			float spam_timer                       = 2.5f;
 			int spam_length                        = 55;

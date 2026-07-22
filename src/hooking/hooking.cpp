@@ -164,6 +164,8 @@ namespace big
 
 		detour_hook_helper::add<hooks::game_skeleton_update>("GSU", g_pointers->m_gta.m_game_skeleton_update);
 
+		detour_hook_helper::add<hooks::get_pool_type>("GPT", g_pointers->m_gta.m_get_pool_type);
+
 		g_hooking = this;
 	}
 
